@@ -1,5 +1,5 @@
 import { Attendance } from './components/Attendance';
-import { HeaderView } from './components/HeaderView';
+import { Header } from '../../components/HeaderView';
 import { Hours } from './components/Hours';
 import { NewPassword } from './components/NewPassword';
 import { OldPassword } from './components/OldPassword';
@@ -8,7 +8,7 @@ import { ContentContainer } from './styles';
 export default function RowView() {
   return (
     <>
-      <HeaderView />
+      <Header>Sistema de Controle de Filas</Header>
       <ContentContainer>
         <OldPassword />
         <NewPassword />
