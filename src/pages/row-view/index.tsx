@@ -1,5 +1,5 @@
 import { Attendance } from './components/Attendance';
-import { Header } from '../../components/HeaderView';
+import { Header } from '../../components/Header';
 import { Hours } from './components/Hours';
 import { NewPassword } from './components/NewPassword';
 import { OldPassword } from './components/OldPassword';
