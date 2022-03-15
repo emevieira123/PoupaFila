@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NextPassContainer = styled.div`
   width: 100%;
   height: 100vh;
-  background: #808080;
+  background: #f6f4f4;
   display: flex;
 `;
 

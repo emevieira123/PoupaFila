@@ -8,6 +8,10 @@ export const GlobalStyles = createGlobalStyle`
     outline: none;
   }
 
+  body {
+    background: #f6f4f4;
+  }
+
   h1, h2, h3, h4, h5, h6, span, strong, b, a, label {
     font-family: Arial, Helvetica, sans-serif;
   }

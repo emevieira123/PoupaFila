@@ -6,31 +6,38 @@ import { UserAvatar } from '../assets/UserAvatar';
 
 export function Menu() {
   return (
-    <MenuContainer>
-      <UserLoguedContainer>
-        <UserAvatar />
-        <span>Fulano de Tal</span>
-      </UserLoguedContainer>
-      <StyledLink>
-        <IconUserAdd />
-        <a href="#">Chamar Senha</a>
-      </StyledLink>
-      <StyledLink>
-        <PermissionIcon />
-        <a href="#">Permissões</a>
-      </StyledLink>
-      <StyledLink>
-        <TimeIcon />
-        <a href="#">Cadastro</a>
-      </StyledLink>
-    </MenuContainer>
+    <MenuTeste>
+      <MenuContainer>
+        <UserLoguedContainer>
+          <UserAvatar />
+          <span>Fulano de Tal</span>
+        </UserLoguedContainer>
+        <StyledLink>
+          <TimeIcon />
+          <a href="#">Chamar Senha</a>
+        </StyledLink>
+        <StyledLink>
+          <PermissionIcon />
+          <a href="#">Permissões</a>
+        </StyledLink>
+        <StyledLink>
+          <IconUserAdd />
+          <a href="#">Cadastro</a>
+        </StyledLink>
+      </MenuContainer>
+    </MenuTeste>
   );
 }
+
+const MenuTeste = styled.div`
+  width: 20%;
+`;
 
 const MenuContainer = styled.div`
   width: 20%;
   height: 100vh;
   background: #108bcf;
+  position: fixed;
 `;
 
 const UserLoguedContainer = styled.div`

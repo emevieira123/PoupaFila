@@ -10,6 +10,8 @@ import {
 import { SelectGuiche } from './SelectGuiche';
 import { TabList } from './TabList';
 import { Tabs, Select } from 'antd';
+import { api } from '../../../services/api';
+import { useEffect, useState } from 'react';
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -18,6 +20,16 @@ function handleChange(value) {
 }
 
 export function PassContent() {
+  const [pref, setPref] = useState([]);
+  const [esp, setEsp] = useState([]);
+  const [nor, setNor] = useState([]);
+
+  useEffect(() => {
+    api.get('/preferencial').then((response) => setPref(response.data));
+    api.get('/especial').then((response) => setEsp(response.data));
+    api.get('/normal').then((response) => setNor(response.data));
+  }, []);
+
   return (
     <StyledBody>
       <ContainerOldPass>
@@ -47,22 +59,34 @@ export function PassContent() {
         </StyledButtonNextPass>
         <TabList>
           <TabPane tab="Preferencial" key="01">
-            <StyledTabsContent>
-              <span>Senha:</span>
-              <strong>P001</strong>
-            </StyledTabsContent>
+            {pref.map((preferencial) => {
+              return (
+                <StyledTabsContent key={preferencial.pass}>
+                  <span>Senha:</span>
+                  <strong>P{preferencial.pass}</strong>
+                </StyledTabsContent>
+              );
+            })}
           </TabPane>
           <TabPane tab="Especial" key="02">
-            <StyledTabsContent>
-              <span>Senha:</span>
-              <strong>E002</strong>
-            </StyledTabsContent>
+            {esp.map((especial) => {
+              return (
+                <StyledTabsContent key={especial.pass}>
+                  <span>Senha:</span>
+                  <strong>E{especial.pass}</strong>
+                </StyledTabsContent>
+              );
+            })}
           </TabPane>
           <TabPane tab="Normal" key="03">
-            <StyledTabsContent>
-              <span>Senha:</span>
-              <strong>N003</strong>
-            </StyledTabsContent>
+            {nor.map((normal) => {
+              return (
+                <StyledTabsContent key={normal.pass}>
+                  <span>Senha:</span>
+                  <strong>N{normal.pass}</strong>
+                </StyledTabsContent>
+              );
+            })}
           </TabPane>
         </TabList>
       </StyledContent>
