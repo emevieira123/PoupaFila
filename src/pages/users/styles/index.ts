@@ -20,7 +20,6 @@ const StyledBody = styled.div`
 const StyledHeaderRow = styled(Row)`
   width: 97%;
   height: auto;
-  border-bottom: 1px solid rgba(129, 129, 129, 0.3);
 `;
 
 const StyledHeaderCol = styled(Col)`

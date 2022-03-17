@@ -7,8 +7,7 @@ const ContentContainer = styled.div`
   background: #f6f4f4;
 
   display: grid;
-  grid-template-columns: 1fr 60rem;
-  grid-column: 1/2;
+  grid-template-columns: 36vw 1fr;
   gap: 0.6rem;
 `;
 
@@ -30,12 +29,12 @@ const NewPasswordContainer = styled.div`
   border-bottom: 1px solid rgba(129, 129, 129, 0.4);
   border-left: 1px solid rgba(129, 129, 129, 0.4);
   display: grid;
-  grid-template-columns: 1fr 35rem;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const HoursContainer = styled.div`
   width: 100%;
-  height: 18.4vh;
+  height: 18.8vh;
   border-radius: 0 18px 0 0;
   background: #818181;
 
@@ -51,7 +50,7 @@ const HoursContainer = styled.div`
 
 const AttendanceContainer = styled.div`
   width: 100%;
-  height: 18.4vh;
+  height: 18.8vh;
   border-radius: 18px 0 0 0;
   background: #108bcf;
 

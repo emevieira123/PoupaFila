@@ -25,7 +25,7 @@ const ImgContainer = styled.div`
   border-radius: 0 0 0 18px;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
 `;
 
 const ContentContainer = styled.div`

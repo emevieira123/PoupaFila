@@ -36,7 +36,7 @@ export function TableUser() {
 
   return (
     <>
-      <StyledTable columns={columns} dataSource={user} />
+      <StyledTable columns={columns} dataSource={user} bordered />
     </>
   );
 }
