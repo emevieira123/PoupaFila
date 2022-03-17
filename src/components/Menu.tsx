@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 import { IconUserAdd } from '../assets/IconUserAdd';
 import { PermissionIcon } from '../assets/PermissionIcon';
@@ -14,15 +15,15 @@ export function Menu() {
         </UserLoguedContainer>
         <StyledLink>
           <TimeIcon />
-          <a href="#">Chamar Senha</a>
+          <Link href="/next-pass">Chamar Senha</Link>
         </StyledLink>
         <StyledLink>
           <PermissionIcon />
-          <a href="#">Permissões</a>
+          <Link href="/users">Permissões</Link>
         </StyledLink>
         <StyledLink>
           <IconUserAdd />
-          <a href="#">Cadastro</a>
+          <Link href="#">Cadastro</Link>
         </StyledLink>
       </MenuContainer>
     </MenuTeste>
