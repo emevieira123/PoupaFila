@@ -4,11 +4,10 @@ import { IconUsers } from '../../../assets/IconUsers';
 import { StyledHeaderRow, StyledHeaderCol, StyledButton } from '../styles';
 import { DrawerNewUser } from './DrawerNewUser';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export function HeaderUsers() {
-  const message = () => toast.success('Usuário criado com sucesso!!');
   const [visible, setVisible] = useState(false);
 
   const handleDrawerNewUserIsOpen = () => {
@@ -21,9 +20,6 @@ export function HeaderUsers() {
 
   const handleDrawerNewUserSaveAndClose = () => {
     setVisible(false);
-    setTimeout(() => {
-      message();
-    }, 1000);
   };
 
   return (

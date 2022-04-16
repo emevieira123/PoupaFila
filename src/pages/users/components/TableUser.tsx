@@ -8,7 +8,7 @@ const columns = [
     title: 'Email',
     dataIndex: 'email',
     key: 'email',
-    render: (text) => <a>{text}</a>,
+    // render: (text) => <a>{text}</a>,
   },
   {
     title: 'Name',

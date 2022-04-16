@@ -57,10 +57,6 @@ const StyledTable = styled(Table)`
   .ant-table-content {
     color: #818181;
     font-size: 16px;
-    a {
-      color: #818181;
-      cursor: default;
-    }
   }
 `;
 

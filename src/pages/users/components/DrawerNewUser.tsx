@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import { Drawer, Form, Button, Col, Row, Input, Space } from 'antd';
-import { NewUserImg } from '../../../assets/NewUserIMG';
+import { Drawer, Button, Space } from 'antd';
+import { FormNewUser } from './FormNewUser';
+import { CreateUser } from '../service/CreateUser';
 
 interface DrawerNewUserProps {
   title: string | React.ReactElement;
@@ -11,6 +12,15 @@ interface DrawerNewUserProps {
   visible: boolean;
 }
 
+const initialValue = {
+  name: '',
+  key: '',
+  email: '',
+  phone: '',
+  password: '',
+  ativo: 'true',
+};
+
 export function DrawerNewUser({
   title,
   width,
@@ -18,6 +28,21 @@ export function DrawerNewUser({
   onClose,
   saveAndClose,
 }: DrawerNewUserProps) {
+  const [values, setValues] = useState(initialValue);
+  console.log(values);
+
+  function onChange(e) {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  }
+
+  function onSubmit(e) {
+    CreateUser(values);
+    const { name, value } = e.target;
+    setValues({ ...initialValue, [name]: value });
+    saveAndClose();
+  }
+
   return (
     <>
       <Drawer
@@ -29,98 +54,21 @@ export function DrawerNewUser({
         extra={
           <Space>
             <Button onClick={onClose}>Cancelar</Button>
-            <Button onClick={saveAndClose} type="primary">
+            <Button type="primary" onClick={onSubmit}>
               Salvar
             </Button>
           </Space>
         }
       >
-        <Form layout="vertical" hideRequiredMark>
-          <Row>
-            <Col
-              span={24}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                paddingBottom: '1.5rem',
-              }}
-            >
-              <NewUserImg />
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="name"
-                label="Name"
-                rules={[
-                  { required: true, message: 'Por favor informe seu nome!' },
-                ]}
-              >
-                <Input placeholder="Informe seu nome" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="cpf"
-                label="CPF"
-                rules={[
-                  { required: true, message: 'Por favor informe seu CPF' },
-                ]}
-              >
-                <Input placeholder="Informe seu cpf" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                  { required: true, message: 'Por favor informe seu e-mail!' },
-                ]}
-              >
-                <Input placeholder="Informe seu e-mail" type="email" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="phone"
-                label="Telefone"
-                rules={[
-                  { required: true, message: 'Por favor informe seu telefone' },
-                ]}
-              >
-                <Input placeholder="Informe seu telefone" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="password"
-                label="Senha"
-                rules={[
-                  { required: true, message: 'Por favor informe uma senha!' },
-                ]}
-              >
-                <Input placeholder="Insira uma senha" type="password" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="confirm-password"
-                label="Confirmar Senha"
-                rules={[
-                  { required: true, message: 'Por favor confirme sua senha!' },
-                ]}
-              >
-                <Input placeholder="Repita sua senha" type="password" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+        <FormNewUser
+          name={values.name}
+          cpf={values.key}
+          email={values.email}
+          phone={values.phone}
+          password={values.password}
+          onChange={onChange}
+          onSubmit={onSubmit}
+        />
       </Drawer>
     </>
   );
