@@ -4,10 +4,11 @@ import { IconUserAdd } from '../assets/IconUserAdd';
 import { PermissionIcon } from '../assets/PermissionIcon';
 import { TimeIcon } from '../assets/TimeIcon';
 import { UserAvatar } from '../assets/UserAvatar';
+import { LogoutIcon } from '../assets/LogoutIcon';
 
 export function Menu() {
   return (
-    <MenuTeste>
+    <StyledMenu>
       <MenuContainer>
         <UserLoguedContainer>
           <UserAvatar />
@@ -25,12 +26,17 @@ export function Menu() {
           <IconUserAdd />
           <Link href="#">Cadastro</Link>
         </StyledLink>
+
+        <StyledLogoutButton>
+          <LogoutIcon />
+          <Link href="#">Logout</Link>
+        </StyledLogoutButton>
       </MenuContainer>
-    </MenuTeste>
+    </StyledMenu>
   );
 }
 
-const MenuTeste = styled.div`
+const StyledMenu = styled.div`
   width: 20%;
 `;
 
@@ -64,6 +70,34 @@ const StyledLink = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    border-right: 4px solid #f6f4f4;
+    filter: brightness(0.9);
+  }
+
+  a {
+    text-decoration: none;
+    color: #f6f4f4;
+    font-size: 24px;
+    margin-left: 10px;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+`;
+
+const StyledLogoutButton = styled.div`
+  width: 100%;
+  height: 2.5rem;
+  margin-top: 20px;
+  padding: 0 1.25rem 0 1.25rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  bottom: 10px;
+  position: fixed;
 
   &:hover {
     border-right: 4px solid #f6f4f4;
