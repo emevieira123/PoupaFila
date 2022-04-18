@@ -10,6 +10,8 @@ interface FormNewUserProps {
   email: string;
   phone: string;
   password: string;
+  confirmPassword: string;
+  setConfirmPassword: any;
   onSubmit: (e: any) => void;
   onChange: (e: any) => void;
 }
@@ -22,6 +24,8 @@ export function FormNewUser({
   password,
   onSubmit,
   onChange,
+  confirmPassword,
+  setConfirmPassword,
 }: FormNewUserProps) {
   return (
     <Form layout="vertical" hideRequiredMark onFinish={onSubmit}>
@@ -133,8 +137,9 @@ export function FormNewUser({
             <Input
               placeholder="Repita sua senha"
               type="password"
-              name="confirmPassword"
               id="confirmPassword"
+              name={confirmPassword}
+              onChange={(e: any) => setConfirmPassword(e.target.value)}
             />
           </Form.Item>
         </Col>

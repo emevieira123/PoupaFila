@@ -1,4 +1,7 @@
+import { SyntheticEvent, useState } from 'react';
 import { LoginIMG } from '../../assets/LoginIMG';
+import { api } from '../../services/api';
+import { URLS } from '../../services/URLS';
 import {
   LoginContainer,
   LeftContainer,
@@ -6,8 +9,25 @@ import {
   InputLogin,
   LabelLogin,
 } from './styles';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const router = useRouter();
+
+  const handleSignIn = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    //http://localhost:4000/login
+    await api.post(URLS.LOGIN, JSON.stringify({ email, password }), {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    });
+    await router.push(URLS.CHAMAR_SENHA);
+  };
+
   return (
     <LoginContainer>
       <LeftContainer>
@@ -15,14 +35,29 @@ export default function Login() {
         <LoginIMG />
       </LeftContainer>
       <RightContainer>
-        <form action="#">
+        <form onSubmit={handleSignIn}>
           <LabelLogin htmlFor="">
             E-mail
-            <InputLogin type="text" style={{ marginBottom: '19px' }} />
+            <InputLogin
+              type="text"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ marginBottom: '19px' }}
+              required={true}
+            />
           </LabelLogin>
           <LabelLogin htmlFor="">
             Senha
-            <InputLogin type="password" />
+            <InputLogin
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+            />
           </LabelLogin>
           <div>
             <label htmlFor="">
@@ -31,7 +66,7 @@ export default function Login() {
             </label>
             <a href="#">Recuperar senha?</a>
           </div>
-          <button>Entrar</button>
+          <button type="submit">Entrar</button>
         </form>
       </RightContainer>
     </LoginContainer>

@@ -3,6 +3,8 @@ import 'antd/dist/antd.css';
 import { Drawer, Button, Space } from 'antd';
 import { FormNewUser } from './FormNewUser';
 import { CreateUser } from '../service/CreateUser';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 interface DrawerNewUserProps {
   title: string | React.ReactElement;
@@ -29,6 +31,7 @@ export function DrawerNewUser({
   saveAndClose,
 }: DrawerNewUserProps) {
   const [values, setValues] = useState(initialValue);
+  const [confirmPassword, setConfirmPassword] = useState('');
   console.log(values);
 
   function onChange(e) {
@@ -37,10 +40,14 @@ export function DrawerNewUser({
   }
 
   function onSubmit(e) {
-    CreateUser(values);
-    const { name, value } = e.target;
-    setValues({ ...initialValue, [name]: value });
-    saveAndClose();
+    if (values.password === confirmPassword) {
+      CreateUser(values);
+      const { name, value } = e.target;
+      setValues({ ...initialValue, [name]: value });
+      saveAndClose();
+    } else {
+      toast.error('Erro: As senhas informadas devem ser idênticas!');
+    }
   }
 
   return (
@@ -66,6 +73,8 @@ export function DrawerNewUser({
           email={values.email}
           phone={values.phone}
           password={values.password}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
           onChange={onChange}
           onSubmit={onSubmit}
         />

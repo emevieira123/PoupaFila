@@ -1,8 +1,7 @@
 import { HoursContainer } from '../styles';
+import moment from 'moment';
 
-const Horas = new Intl.DateTimeFormat('pt-BR', {
-  timeStyle: 'short',
-}).format(new Date());
+const Horas = moment().format('LT');
 
 export function Hours() {
   return (

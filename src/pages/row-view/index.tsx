@@ -6,7 +6,7 @@ import { OldPassword } from './components/OldPassword';
 import { ContentContainer } from './styles';
 import styled from 'styled-components';
 
-export function RowView() {
+export default function RowView() {
   return (
     <>
       <Header>Sistema de Controle de Filas</Header>

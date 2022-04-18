@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { StyledTable } from '../styles';
 import { api } from '../../../services/api';
+import { URLS } from '../../../services/URLS';
 
 const columns = [
   {
@@ -31,7 +32,7 @@ export function TableUser() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    api.get('/users').then((resp) => setUser(resp.data));
+    api.get(URLS.USUARIOS).then((resp) => setUser(resp.data));
   }, []);
 
   return (
