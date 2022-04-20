@@ -32,7 +32,6 @@ export function DrawerNewUser({
 }: DrawerNewUserProps) {
   const [values, setValues] = useState(initialValue);
   const [confirmPassword, setConfirmPassword] = useState('');
-  console.log(values);
 
   function onChange(e) {
     const { name, value } = e.target;

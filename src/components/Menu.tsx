@@ -1,18 +1,34 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import { IconUserAdd } from '../assets/IconUserAdd';
+// import { IconUserAdd } from '../assets/IconUserAdd';
 import { PermissionIcon } from '../assets/PermissionIcon';
 import { TimeIcon } from '../assets/TimeIcon';
 import { UserAvatar } from '../assets/UserAvatar';
 import { LogoutIcon } from '../assets/LogoutIcon';
+import { destroyCookie } from 'nookies';
+import Router from 'next/router';
+import { URLS } from '../services/URLS';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+
+const Logout = () => {
+  destroyCookie({}, 'nextauth.token');
+  destroyCookie({}, 'idUser');
+
+  setTimeout(() => {
+    Router.push(URLS.LOGIN);
+  }, 1000);
+};
 
 export function Menu() {
+  const { user } = useContext(AuthContext);
+
   return (
     <StyledMenu>
       <MenuContainer>
         <UserLoguedContainer>
           <UserAvatar />
-          <span>Fulano de Tal</span>
+          <span>{user?.name}</span>
         </UserLoguedContainer>
         <StyledLink>
           <TimeIcon />
@@ -22,14 +38,16 @@ export function Menu() {
           <PermissionIcon />
           <Link href="/users">Permissões</Link>
         </StyledLink>
-        <StyledLink>
+        {/* <StyledLink>
           <IconUserAdd />
           <Link href="#">Cadastro</Link>
-        </StyledLink>
+        </StyledLink> */}
 
         <StyledLogoutButton>
           <LogoutIcon />
-          <Link href="#">Logout</Link>
+          <button onClick={Logout}>
+            <Link href="#">Logout</Link>
+          </button>
         </StyledLogoutButton>
       </MenuContainer>
     </StyledMenu>
@@ -89,14 +107,14 @@ const StyledLink = styled.div`
 `;
 
 const StyledLogoutButton = styled.div`
-  width: 100%;
+  width: 20%;
   height: 2.5rem;
   margin-top: 20px;
   padding: 0 1.25rem 0 1.25rem;
   display: flex;
   align-items: center;
   cursor: pointer;
-  bottom: 10px;
+  bottom: 3px;
   position: fixed;
 
   &:hover {
@@ -105,13 +123,13 @@ const StyledLogoutButton = styled.div`
   }
 
   a {
-    text-decoration: none;
     color: #f6f4f4;
     font-size: 24px;
     margin-left: 10px;
+  }
 
-    &:hover {
-      filter: brightness(0.9);
-    }
+  button {
+    border: 0;
+    background: transparent;
   }
 `;

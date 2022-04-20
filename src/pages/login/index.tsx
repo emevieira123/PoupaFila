@@ -1,7 +1,7 @@
-import { SyntheticEvent, useState } from 'react';
 import { LoginIMG } from '../../assets/LoginIMG';
-import { api } from '../../services/api';
-import { URLS } from '../../services/URLS';
+import { useForm } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import {
   LoginContainer,
   LeftContainer,
@@ -9,24 +9,22 @@ import {
   InputLogin,
   LabelLogin,
 } from './styles';
-import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit } = useForm();
+  const { signIn } = useContext(AuthContext);
 
-  const router = useRouter();
-
-  const handleSignIn = async (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    //http://localhost:4000/login
-    await api.post(URLS.LOGIN, JSON.stringify({ email, password }), {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    });
-    await router.push(URLS.CHAMAR_SENHA);
-  };
+  // e: SyntheticEvent
+  async function handleSignIn(data) {
+    console.log(data);
+    try {
+      await signIn(data);
+    } catch (e) {
+      toast.error('Erro: E-mail ou Senha Inválidos!');
+    }
+  }
 
   return (
     <LoginContainer>
@@ -35,15 +33,14 @@ export default function Login() {
         <LoginIMG />
       </LeftContainer>
       <RightContainer>
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleSubmit(handleSignIn)}>
           <LabelLogin htmlFor="">
             E-mail
             <InputLogin
               type="text"
-              name="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              {...register('email')}
               style={{ marginBottom: '19px' }}
               required={true}
             />
@@ -54,8 +51,7 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register('password')}
               required={true}
             />
           </LabelLogin>
@@ -69,6 +65,18 @@ export default function Login() {
           <button type="submit">Entrar</button>
         </form>
       </RightContainer>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </LoginContainer>
   );
 }
