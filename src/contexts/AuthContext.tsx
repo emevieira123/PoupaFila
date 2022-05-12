@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
       data: { accessToken, user },
     } = await api.post(URLS.LOGIN, JSON.stringify({ email, password }), {
       headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
+      withCredentials: false,
     });
 
     setCookie(undefined, 'nextauth.token', accessToken, {
