@@ -1,82 +1,39 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { api } from '../../../services/api';
+import { URLS } from '../../../services/URLS';
 import { OldPasswordContainer } from '../styles';
 
 export function OldPassword() {
+  const [anterior, setAnterior] = useState([]);
+
+  const senhaAnterior = anterior.filter((item) => item.anterior === true);
+
+  useEffect(() => {
+    api.get(URLS.LISTAR_SENHAS).then((response) => {
+      setAnterior(response.data);
+    });
+  }, []);
+
   return (
     <OldPasswordContainer>
       <StyledTitle>
         <h2>Senhas Anteriores</h2>
       </StyledTitle>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
-      <StyledContent>
-        <div>
-          <span>Senha</span>
-          <strong>N0001</strong>
-        </div>
-        <div>
-          <span>Guichê</span>
-          <strong>02</strong>
-        </div>
-      </StyledContent>
+      {senhaAnterior.map((data) => {
+        return (
+          <StyledContent key={data.id}>
+            <div>
+              <span>Senha</span>
+              <strong>N{String(data.senha).padStart(3, '0')}</strong>
+            </div>
+            <div>
+              <span>Guichê</span>
+              <strong>02</strong>
+            </div>
+          </StyledContent>
+        );
+      })}
     </OldPasswordContainer>
   );
 }

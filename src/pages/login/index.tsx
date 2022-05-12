@@ -18,7 +18,6 @@ export default function Login() {
 
   // e: SyntheticEvent
   async function handleSignIn(data) {
-    console.log(data);
     try {
       await signIn(data);
     } catch (e) {

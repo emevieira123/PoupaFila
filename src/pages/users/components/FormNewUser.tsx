@@ -3,6 +3,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Form, Col, Row, Input } from 'antd';
 import { NewUserImg } from '../../../assets/NewUserIMG';
+import { StyledPhoneCpf } from '../styles';
 
 interface FormNewUserProps {
   name: string;
@@ -62,13 +63,14 @@ export function FormNewUser({
             label="CPF"
             rules={[{ required: true, message: 'Por favor informe seu CPF' }]}
           >
-            <Input
+            <StyledPhoneCpf
               placeholder="Informe seu cpf"
               type="text"
               name="key"
               id="key"
               onChange={onChange}
               value={cpf}
+              mask="999.999.999-99"
             />
           </Form.Item>
         </Col>
@@ -98,13 +100,14 @@ export function FormNewUser({
               { required: true, message: 'Por favor informe seu telefone' },
             ]}
           >
-            <Input
+            <StyledPhoneCpf
               placeholder="Informe seu telefone"
               type="text"
               name="phone"
               id="phone"
               onChange={onChange}
               value={phone}
+              mask="(99) 99999-9999"
             />
           </Form.Item>
         </Col>

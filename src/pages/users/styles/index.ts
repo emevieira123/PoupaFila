@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Col, Row, Button, Table } from 'antd';
+import InputMask from 'react-input-mask';
 
 const UserContainer = styled.div`
   width: 100%;
@@ -60,6 +61,18 @@ const StyledTable = styled(Table)`
   }
 `;
 
+const StyledPhoneCpf = styled(InputMask)`
+  width: 100%;
+  height: 2rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 2px;
+  padding-left: 10px;
+
+  &::placeholder {
+    color: #bfbfbf;
+  }
+`;
+
 export {
   UserContainer,
   StyledBody,
@@ -67,4 +80,5 @@ export {
   StyledHeaderCol,
   StyledButton,
   StyledTable,
+  StyledPhoneCpf,
 };

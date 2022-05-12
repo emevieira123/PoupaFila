@@ -1,21 +1,44 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PassIMG } from '../../../assets/PassIMG';
+import { api } from '../../../services/api';
+import { URLS } from '../../../services/URLS';
 import { NewPasswordContainer } from '../styles';
 
 export function NewPassword() {
+  const [exibe, setExibe] = useState([]);
+  const senhaDeExibicao = exibe.filter(
+    (exibeSenha) => exibeSenha.atual === true,
+  );
+  console.log(senhaDeExibicao);
+
+  useEffect(() => {
+    api.get(URLS.LISTAR_SENHAS).then((response) => {
+      setExibe(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    senhaDeExibicao;
+  }, [senhaDeExibicao]);
+
   return (
     <NewPasswordContainer>
       <ImgContainer>
         <PassIMG />
       </ImgContainer>
-      <ContentContainer>
-        <span>Senha</span>
-        <PassNumber>N001</PassNumber>
-        <span>
-          Guichê:
-          <b> 01</b>
-        </span>
-      </ContentContainer>
+      {senhaDeExibicao.map((item) => {
+        return (
+          <ContentContainer key={item.id}>
+            <span>Senha</span>
+            <PassNumber>N{String(item.senha).padStart(3, '0')}</PassNumber>
+            <span>
+              Guichê:
+              <b> 01</b>
+            </span>
+          </ContentContainer>
+        );
+      })}
     </NewPasswordContainer>
   );
 }

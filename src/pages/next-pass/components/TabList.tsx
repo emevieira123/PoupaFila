@@ -3,7 +3,6 @@ import 'antd/dist/antd.css';
 import { Tabs } from 'antd';
 
 function callback(key) {
-  console.log(key);
   return key;
 }
 
