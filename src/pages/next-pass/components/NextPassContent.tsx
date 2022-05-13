@@ -10,9 +10,8 @@ import {
 import { SelectGuiche } from './SelectGuiche';
 import { TabList } from './TabList';
 import { Tabs, Select } from 'antd';
-import { api } from '../../../services/api';
-import { useEffect, useState } from 'react';
-import { URLS } from '../../../services/URLS';
+import useGetSenhaNormal from '../../../hooks/useGetListPass';
+
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -21,21 +20,11 @@ function handleChange(value) {
 }
 
 export function PassContent() {
-  const [pref, setPref] = useState([]);
-  const [esp, setEsp] = useState([]);
-  const [nor, setNor] = useState([]);
+  const { data } = useGetSenhaNormal();
+  const pref = data;
+  const esp = data;
 
-  const filaNormal = nor.filter((senha) => senha.fila === true);
-
-  useEffect(() => {
-    // api.get('/preferencial').then((response) => setPref(response.data));
-    // api.get('/especial').then((response) => setEsp(response.data));
-    api.get(URLS.LISTAR_SENHAS).then((response) => {
-      setNor(response.data);
-      setEsp(response.data);
-      setPref(response.data);
-    });
-  }, []);
+  const filaNormal = data?.filter((senha) => senha.fila === true);
 
   return (
     <StyledBody>
@@ -66,7 +55,7 @@ export function PassContent() {
         </StyledButtonNextPass>
         <TabList>
           <TabPane tab="Preferencial" key="01">
-            {pref.map((preferencial) => {
+            {pref?.map((preferencial) => {
               return (
                 <StyledTabsContent key={preferencial.id}>
                   <span>Senha:</span>
@@ -78,7 +67,7 @@ export function PassContent() {
             })}
           </TabPane>
           <TabPane tab="Especial" key="02">
-            {esp.map((especial) => {
+            {esp?.map((especial) => {
               return (
                 <StyledTabsContent key={especial.id}>
                   <span>Senha:</span>
@@ -88,7 +77,7 @@ export function PassContent() {
             })}
           </TabPane>
           <TabPane tab="Normal" key="03">
-            {filaNormal.map((normal) => {
+            {filaNormal?.map((normal) => {
               return (
                 <StyledTabsContent key={normal.id}>
                   <span>Senha:</span>

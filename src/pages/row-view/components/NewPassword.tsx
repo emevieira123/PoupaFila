@@ -1,33 +1,21 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PassIMG } from '../../../assets/PassIMG';
-import { api } from '../../../services/api';
-import { URLS } from '../../../services/URLS';
+import useGetSenhaNormal from '../../../hooks/useGetListPass';
 import { NewPasswordContainer } from '../styles';
 
 export function NewPassword() {
-  const [exibe, setExibe] = useState([]);
-  const senhaDeExibicao = exibe.filter(
+  const { data } = useGetSenhaNormal();
+
+  const senhaDeExibicao = data?.filter(
     (exibeSenha) => exibeSenha.atual === true,
   );
-  console.log(senhaDeExibicao);
-
-  useEffect(() => {
-    api.get(URLS.LISTAR_SENHAS).then((response) => {
-      setExibe(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    senhaDeExibicao;
-  }, [senhaDeExibicao]);
 
   return (
     <NewPasswordContainer>
       <ImgContainer>
         <PassIMG />
       </ImgContainer>
-      {senhaDeExibicao.map((item) => {
+      {senhaDeExibicao?.map((item) => {
         return (
           <ContentContainer key={item.id}>
             <span>Senha</span>

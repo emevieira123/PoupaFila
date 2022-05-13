@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { StyledTable } from '../styles';
-import { api } from '../../../services/api';
-import { URLS } from '../../../services/URLS';
+import useGetUsers from '../../../hooks/useGetUsers';
 
 const columns = [
   {
@@ -29,26 +28,11 @@ const columns = [
 ];
 
 export function TableUser() {
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    api.get(URLS.USUARIOS).then((resp) => setUser(resp.data));
-  }, []);
+  const { data: users } = useGetUsers();
 
   return (
     <>
-      <StyledTable columns={columns} dataSource={user} bordered />
+      <StyledTable columns={columns} dataSource={users} bordered />
     </>
   );
 }
-
-// const data = [];
-// for (let i = 0; i < 100; i++) {
-//   data.push({
-//     key: i,
-//     name: `Edward King ${i}`,
-//     email: `edward${i}@RuleTester.com.br`,
-//     phone: `6599999999${i}`,
-//     ativo: 'ativo',
-//   });
-// }
