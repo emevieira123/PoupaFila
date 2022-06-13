@@ -1,11 +1,10 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import getListPass from '../queries/getListPass';
-import { URLS } from '../services/URLS';
+import getHora, { Hora } from '../queries/getHora';
 
-export default function useGetSenhaNormal() {
-  const [intervalMs] = React.useState(1000);
-  const resultQuery = useQuery([URLS.LISTAR_SENHAS], getListPass, {
+export default function useGetHora() {
+  const [intervalMs] = React.useState(1000 * 60);
+  const resultQuery = useQuery([Hora], getHora, {
     onSuccess: (data) => {
       console.log(data);
     },

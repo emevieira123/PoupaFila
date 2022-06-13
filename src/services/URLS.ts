@@ -4,4 +4,5 @@ export enum URLS {
   CHAMAR_SENHA = 'next-pass',
   USUARIOS = '/users',
   LISTAR_SENHAS = '/normal-pass',
+  POST_CHAMAR_SENHA = '/api/chamar-senha',
 }

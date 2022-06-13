@@ -4,15 +4,10 @@ import { queryClient } from '../pages/_app';
 import postCreateUser from '../queries/postCreateUser';
 import { URLS } from '../services/URLS';
 
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-
 export default function useCreateUser(onSuccess: () => void) {
   return useMutation(postCreateUser, {
     onSuccess() {
       queryClient.invalidateQueries(URLS.USUARIOS);
-
-      toast.success('Usuário criado com sucesso!!');
 
       onSuccess();
     },

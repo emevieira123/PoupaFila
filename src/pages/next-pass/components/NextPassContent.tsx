@@ -11,6 +11,7 @@ import { SelectGuiche } from './SelectGuiche';
 import { TabList } from './TabList';
 import { Tabs, Select } from 'antd';
 import useGetSenhaNormal from '../../../hooks/useGetListPass';
+import useChamarSenha from '../../../hooks/useChamarSenha';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -25,17 +26,29 @@ export function PassContent() {
   const esp = data;
 
   const filaNormal = data?.filter((senha) => senha.fila === true);
+  const UltimaSenhaChamada = data?.filter((senha) => senha.atual === true);
+
+  const { mutate: ChamarSenha } = useChamarSenha(() => void 0);
+
+  function handleChamarSenha() {
+    ChamarSenha();
+  }
 
   return (
     <StyledBody>
-      <ContainerOldPass>
-        <span>Ultima senha chamada</span>
-        <b>N0001</b>
-        <label>
-          Guichê
-          <strong>02</strong>
-        </label>
-      </ContainerOldPass>
+      {UltimaSenhaChamada?.map((ultimaChamada) => {
+        return (
+          <ContainerOldPass key={ultimaChamada.id}>
+            <span>Ultima senha chamada</span>
+            <b>N{String(ultimaChamada.senha).padStart(3, '0')}</b>
+            <label>
+              Guichê
+              <strong>01</strong>
+            </label>
+          </ContainerOldPass>
+        );
+      })}
+
       <SelectContainer>
         <SelectGuiche handleChange={handleChange} value="g01">
           <Option value="g01">Guichê 01</Option>
@@ -51,7 +64,9 @@ export function PassContent() {
         <StyledButtonNextPass>
           <BtnNextPass>Atendimento Preferencial</BtnNextPass>
           <BtnNextPass>Atendimento Especial</BtnNextPass>
-          <BtnNextPass>Atendimento Normal</BtnNextPass>
+          <BtnNextPass onClick={handleChamarSenha}>
+            Atendimento Normal
+          </BtnNextPass>
         </StyledButtonNextPass>
         <TabList>
           <TabPane tab="Preferencial" key="01">

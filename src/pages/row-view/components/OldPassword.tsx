@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { api } from '../../../services/api';
-import { URLS } from '../../../services/URLS';
+import useGetSenhaNormal from '../../../hooks/useGetListPass';
 import { OldPasswordContainer } from '../styles';
 
 export function OldPassword() {
-  const [anterior, setAnterior] = useState([]);
+  const { data } = useGetSenhaNormal();
 
-  const senhaAnterior = anterior.filter((item) => item.anterior === true);
-
-  useEffect(() => {
-    api.get(URLS.LISTAR_SENHAS).then((response) => {
-      setAnterior(response.data);
-    });
-  }, []);
+  const senhaAnterior = data?.filter((item) => item.anterior === true);
 
   return (
     <OldPasswordContainer>
       <StyledTitle>
         <h2>Senhas Anteriores</h2>
       </StyledTitle>
-      {senhaAnterior.map((data) => {
+      {senhaAnterior?.map((data) => {
         return (
           <StyledContent key={data.id}>
             <div>
@@ -29,7 +21,7 @@ export function OldPassword() {
             </div>
             <div>
               <span>Guichê</span>
-              <strong>02</strong>
+              <strong>01</strong>
             </div>
           </StyledContent>
         );

@@ -1,12 +1,12 @@
 import { HoursContainer } from '../styles';
-import moment from 'moment';
-
-const Horas = moment().format('LT');
+import useGetHora from '../../../hooks/useGetHora';
 
 export function Hours() {
+  const { data } = useGetHora();
+  console.log(data);
   return (
     <HoursContainer>
-      <h2>{Horas}</h2>
+      <h2>{data}</h2>
     </HoursContainer>
   );
 }
